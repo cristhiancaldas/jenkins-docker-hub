@@ -18,6 +18,7 @@ pipeline {
        }
 
        stage('Build Image...'){
+          agent any
          steps{
                //dockerImage = docker.build("monishavasu/my-react-
              sh 'docker build -t crist/jenkins-docker-hub .'
