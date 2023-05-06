@@ -4,7 +4,11 @@ pipeline {
         maven 'MAVEN_HOME'
         jdk   'JAVA_HOME'
       }
-
+    environment {
+        imageName = "crist/jenkins-docker-hub"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
     stages {
        stage('Build Maven'){
          steps{
@@ -15,20 +19,22 @@ pipeline {
 
        stage('Build Image...'){
          steps{
-             sh 'docker build -t crist/jenkins-docker-hub:${env.BUILD_NUMBER} .'
+             script {
+                    dockerImage = docker.build imageName
+             }
          }
        }
 
-       stage('Login and Push Docker Image...'){
+       /*stage('Login and Push Docker Image...'){
          steps{
                script{
-                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
                      sh 'docker login -u crist -p ${dockerhubpwd}'
                }
                      sh 'docker push crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
              }
          }
-       }
+       }*/
 
     }
 }
