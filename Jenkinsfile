@@ -5,7 +5,7 @@ pipeline {
         jdk   'JAVA_HOME'
       }
     environment {
-        imageName = "crist/jenkins-docker-hub"
+        registry = "crist/jenkins-docker-hub"
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -18,10 +18,10 @@ pipeline {
        }
 
        stage('Build Image...'){
-          agent any
          steps{
-               //dockerImage = docker.build("monishavasu/my-react-
-             sh 'docker build -t crist/jenkins-docker-hub .'
+            script {
+                         dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                     }
          }
        }
 
