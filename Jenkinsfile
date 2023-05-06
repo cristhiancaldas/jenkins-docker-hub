@@ -19,13 +19,12 @@ pipeline {
 
        stage('Build Image...'){
          steps{
-             script {
-                    dockerImage = docker.build imageName
-             }
+               //dockerImage = docker.build("monishavasu/my-react-
+             sh 'docker build -t crist/jenkins-docker-hub .'
          }
        }
 
-       /*stage('Login and Push Docker Image...'){
+    /*   stage('Login and Push Docker Image...'){
          steps{
                script{
                      withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
@@ -34,7 +33,7 @@ pipeline {
                      sh 'docker push crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
              }
          }
-       }*/
-
+       }
+*/
     }
 }
