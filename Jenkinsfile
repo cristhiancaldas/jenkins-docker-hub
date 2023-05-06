@@ -1,4 +1,8 @@
 pipeline {
+    tools {
+        maven 'MAVEN_HOME'
+        jdk 'JAVA_HOME'
+    }
     environment {
         registry = "crist/jenkins-docker-hub"
         registryCredential = 'dockerhub'
