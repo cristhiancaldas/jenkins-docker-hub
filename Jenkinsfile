@@ -44,10 +44,8 @@ pipeline {
          }
     stage('Push Docker Hub') {
           steps {
-             sh 'echo $dockerImage'
             script{
                  dockerImage.push()
-                  sh 'echo  ${env.BUILD_ID}'
                  sh 'docker rmi -f crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
             }
           }
