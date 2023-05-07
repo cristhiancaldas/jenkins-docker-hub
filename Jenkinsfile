@@ -39,10 +39,9 @@ pipeline {
     stage('🚀 Push DockerHub') {
           steps {
             script{
-                // dockerImage.push()
-                sh ' hola'
+                dockerImage.push()
             }
-             //sh "docker rmi $registry:$BUILD_NUMBER"
+             sh "docker rmi $registry:$BUILD_NUMBER"
           }
         }
 
