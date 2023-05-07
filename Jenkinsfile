@@ -7,6 +7,7 @@ pipeline {
         registry = "crist/jenkins-docker-hub"
         registryCredential = 'dockerhub'
         dockerImage = ''
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
 
     }
 
@@ -28,16 +29,22 @@ pipeline {
          }
     }
 
-    stage('Login and Push Docker Image...'){
+    stage('Login Docker '){
          steps{
-               script{
-                     docker.withRegistry( '', registryCredential ) {
+           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+               //script{
+                   /*  docker.withRegistry( '', registryCredential ) {
                      dockerImage.push()
                      //dockerImage.push("latest")
-                    }
-               }
+                    }*/
+               //}
                    //  sh 'docker push crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
              }
          }
+    stage('Push Docker Hub') {
+          steps {
+            sh 'docker push registry:${env.BUILD_NUMBER}'
+          }
+        }
   }
 }
