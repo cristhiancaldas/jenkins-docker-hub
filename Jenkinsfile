@@ -48,7 +48,7 @@ pipeline {
             script{
                  dockerImage.push()
                   sh 'echo ${env.BUILD_ID}'
-                 sh 'docker rmi -f crist/jenkins-docker-hub:${env.BUILD_ID}'
+                 sh 'docker rmi -f crist/jenkins-docker-hub:${BwUILD_NUMBER}'
             }
           }
         }
