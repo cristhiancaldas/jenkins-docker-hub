@@ -28,16 +28,16 @@ pipeline {
          }
     }
 
-    /*   stage('Login and Push Docker Image...'){
+    stage('Login and Push Docker Image...'){
          steps{
                script{
-                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
-                     sh 'docker login -u crist -p ${dockerhubpwd}'
+                     docker.withRegistry( '', registryCredential ) {
+                     dockerImage.push()
+                     //dockerImage.push("latest")
+                    }
                }
-                     sh 'docker push crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
+                   //  sh 'docker push crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
              }
          }
-       }
-*/
-}
+  }
 }
