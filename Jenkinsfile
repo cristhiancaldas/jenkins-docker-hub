@@ -47,8 +47,14 @@ pipeline {
              sh 'echo $dockerImage'
             script{
                  dockerImage.push()
+                 sh 'docker rmi -f $registry:${env.BUILD_ID}'
             }
           }
         }
-  }
+    }
+    post {
+      always {
+        sh 'docker logout'
+      }
+    }
 }
