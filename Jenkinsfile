@@ -14,6 +14,7 @@ pipeline {
   agent any
 
   stages {
+  
     stage('Build Maven') {
       steps {
         git credentialsId: 'GitHub',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
@@ -22,7 +23,7 @@ pipeline {
       }
     }
 
-    stage('Build Image...'){
+    stage('🚀 Build Image...'){
          steps{
             script {
                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -30,19 +31,13 @@ pipeline {
          }
     }
 
-    stage('Login Docker '){
+    stage('🚀 Login DockerHub'){
          steps{
-           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-               //script{
-                   /*  docker.withRegistry( '', registryCredential ) {
-                     dockerImage.push()
-                     //dockerImage.push("latest")
-                    }*/
-               //}
-                   //  sh 'docker push crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
              }
          }
-    stage('Push Docker Hub') {
+
+    stage('🚀 Push DockerHub') {
           steps {
             script{
                  dockerImage.push()
