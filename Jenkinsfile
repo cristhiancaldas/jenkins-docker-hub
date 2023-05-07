@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('Build Maven') {
       steps {
-        git credentialsId: 'GitHub', url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
+        git credentialsId: 'GitHub',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cristhiancaldas/jenkins-docker-hub']]])
         sh 'mvn clean install'
       }
