@@ -46,8 +46,8 @@ pipeline {
           steps {
             script{
                  dockerImage.push()
-                 sh 'docker rmi -f crist/jenkins-docker-hub:${env.BUILD_NUMBER}'
             }
+             sh "docker rmi $registry:$BUILD_NUMBER"
           }
         }
     }
