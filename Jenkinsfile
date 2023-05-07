@@ -43,7 +43,7 @@ pipeline {
          }
     stage('Push Docker Hub') {
           steps {
-            sh 'docker push registry:${env.BUILD_NUMBER}'
+            sh 'docker push dockerImage'
           }
         }
   }
