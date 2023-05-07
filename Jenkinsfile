@@ -14,8 +14,8 @@ pipeline {
   agent any
 
   stages {
-  
-    stage('Build Maven') {
+
+    stage('🚀 Build Maven') {
       steps {
         git credentialsId: 'GitHub',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cristhiancaldas/jenkins-docker-hub']]])
@@ -40,11 +40,21 @@ pipeline {
     stage('🚀 Push DockerHub') {
           steps {
             script{
-                 dockerImage.push()
+                // dockerImage.push()
             }
-             sh "docker rmi $registry:$BUILD_NUMBER"
+             //sh "docker rmi $registry:$BUILD_NUMBER"
           }
         }
+
+    stage('🚀 Deployment K8S'){
+          steps{
+             script{
+                 kubernetesDeploy(configs: "deployment-app.yml")
+                 //kubernetesDeploy (configs: 'deployment-app.yml',kubeconfigId: 'k8sconfigpwd')
+             }
+          }
+    }
+
     }
     post {
       always {
