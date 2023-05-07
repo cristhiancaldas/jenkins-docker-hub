@@ -43,7 +43,7 @@ pipeline {
          }
     stage('Push Docker Hub') {
           steps {
-            sh 'docker push dockerImage'
+            sh 'docker push $dockerImage'
           }
         }
   }
