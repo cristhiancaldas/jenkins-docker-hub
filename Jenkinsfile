@@ -8,7 +8,6 @@ pipeline {
         registryCredential = 'dockerhub'
         dockerImage = ''
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-
     }
 
   agent any
@@ -41,6 +40,7 @@ pipeline {
           steps {
             script{
                 // dockerImage.push()
+                sh ' hola'
             }
              //sh "docker rmi $registry:$BUILD_NUMBER"
           }
