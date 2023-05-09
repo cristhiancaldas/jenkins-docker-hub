@@ -48,8 +48,8 @@ pipeline {
     stage('🚀 Deployment K8S'){
           steps{
              script{
-                 kubernetesDeploy(configs: "deployment-app.yml")
-                 //kubernetesDeploy (configs: 'deployment-app.yml',kubeconfigId: 'k8sconfigpwd')
+                   withKubeConfig([credentialsId: 'k8S', serverUrl: '']) {
+                             sh ('kubectl apply -f deployment-app.yaml')
              }
           }
     }
