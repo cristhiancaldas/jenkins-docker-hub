@@ -48,13 +48,13 @@ pipeline {
     stage('🚀 Deployment K8S'){
           steps{
              script{
-                   withKubeConfig([credentialsId: 'k8S', serverUrl: '']) {
-                             sh ('kubectl apply -f deployment-app.yaml')
+             withKubeConfig([credentialsId: 'K8S']) {
+                             sh ('kubectl apply -f  deployment-app.yml')
              }
           }
     }
-
     }
+}
     post {
       always {
         sh 'docker logout'
