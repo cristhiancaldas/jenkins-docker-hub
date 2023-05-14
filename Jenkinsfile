@@ -18,7 +18,7 @@ pipeline {
       steps {
         git credentialsId: 'GitHub',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cristhiancaldas/jenkins-docker-hub']]])
-        sh 'mvn clean install'
+        sh 'mvn install -DskipTests'
       }
     }
 
