@@ -11,11 +11,11 @@ pipeline {
       }
     }
 
-    environment {
+  /*  environment {
         registry = "crist/jenkins-docker-hub"
         dockerImage = ''
         DOCKERHUB_CREDENTIALS = credentials('docker-cred')
-    }
+    }*/
 
   stages {
 
