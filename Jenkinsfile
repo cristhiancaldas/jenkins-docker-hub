@@ -3,7 +3,7 @@ pipeline {
         maven 'MAVEN_HOME'
         jdk 'JAVA_HOME'
     }
-
+  agent any
    agent {
       docker {
         image 'crist/jenkins-docker-hub:28'
