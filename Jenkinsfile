@@ -6,7 +6,7 @@ pipeline {
 
    agent {
       docker {
-        image 'crist/jenkins-docker-hub:v1'
+        image 'crist/jenkins-docker-hub:28'
         args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
       }
     }
