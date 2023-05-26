@@ -1,13 +1,15 @@
 pipeline {
-    tools {
-        maven 'MAVEN_HOME'
-        jdk 'JAVA_HOME'
+
+  /*  agent {
+      docker {
+        args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+      }
     }
+*/
     environment {
         registry = "crist/jenkins-docker-hub"
-        registryCredential = 'dockerhub'
         dockerImage = ''
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('docker-cred')
     }
 
   agent any
@@ -16,7 +18,7 @@ pipeline {
 
     stage('🚀 Build Maven') {
       steps {
-        git credentialsId: 'GitHub',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
+        git credentialsId: 'github-cred',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cristhiancaldas/jenkins-docker-hub']]])
         sh 'mvn clean install'
       }
@@ -45,7 +47,7 @@ pipeline {
           }
         }
 
-    stage('🚀 Deployment K8S'){
+   /* stage('🚀 Deployment K8S'){
           steps{
              script{
               withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
@@ -53,7 +55,7 @@ pipeline {
              }
           }
     }
-    }
+    }*/
 }
     post {
       always {
