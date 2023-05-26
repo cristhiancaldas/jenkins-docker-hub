@@ -3,8 +3,10 @@ pipeline {
         maven 'MAVEN_HOME'
         jdk 'JAVA_HOME'
     }
+
    agent {
       docker {
+        image 'crist/jenkins-docker-hub:v1'
         args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
       }
     }
