@@ -28,13 +28,11 @@ pipeline {
       }
     }
 
-   /* stage('🚀 Build Image...'){
-         steps{
-            script {
-                   dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                   }
-         }
-    }*/
+    stage('🚀 Build Image...'){
+            steps {
+                        sh 'docker build -t crist/jenkins-docker-hub:$BUILD_NUMBER .'
+               }
+    }
 
    /* stage('🚀Build and Push Docker Image') {
       environment {
