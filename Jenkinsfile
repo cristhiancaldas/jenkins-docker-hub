@@ -22,21 +22,24 @@ pipeline {
       }
     }
 
+   stage('🚀 Build Docker Image') {
+         steps {
+                sh 'docker build -t $registry:$BUILD_NUMBER .'
+         }
+   }
 
    stage('🚀 Login DockerHub'){
          steps{
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-             }
+         }
    }
 
-   /* stage('🚀 Push DockerHub') {
-          steps {
-            script{
-                dockerImage.push()
-            }
-             sh "docker rmi $registry:$BUILD_NUMBER"
-          }
-        }*/
+   stage('🚀 Push Image DockerHub') {
+         steps{
+                sh 'docker push $registry:$BUILD_NUMBER'
+                sh 'docker rmi $registry:$BUILD_NUMBER'
+         }
+    }
 
    /* stage('🚀 Deployment K8S'){
           steps{
