@@ -3,6 +3,7 @@ pipeline {
         maven 'MAVEN_HOME'
         jdk 'JAVA_HOME'
     }
+    agent any
 
    /*agent {
       docker {
