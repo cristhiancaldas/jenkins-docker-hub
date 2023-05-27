@@ -4,12 +4,12 @@ pipeline {
         jdk 'JAVA_HOME'
     }
 
-   agent {
+   /*agent {
       docker {
         image 'crist/jenkins-docker-hub:28'
         args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
       }
-    }
+    }*/
 
   /*  environment {
         registry = "crist/jenkins-docker-hub"
@@ -35,7 +35,7 @@ pipeline {
          }
     }*/
 
-    stage('🚀Build and Push Docker Image') {
+   /* stage('🚀Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "crist/jenkins-docker-hub:${BUILD_NUMBER}"
        REGISTRY_CREDENTIALS = credentials('docker-cred')
@@ -49,7 +49,7 @@ pipeline {
             }
         }
       }
-    }
+    }*/
 
    /* stage('🚀 Login DockerHub'){
          steps{
