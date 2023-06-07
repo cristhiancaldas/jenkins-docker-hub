@@ -33,7 +33,7 @@ pipeline {
         }
      }
 
-     stage(" 🚀 DockerBuild and Push") {
+     stage(" 🚀 Docker Build and Push") {
          steps {
              dir("${WORKSPACE}") {
                  dockerBuild ( "${ImageName}", "${docker_repo}" )
@@ -47,10 +47,10 @@ pipeline {
         }
      }
 
-     stage(" 🚀 Create deployment") {
+     stage(" 🚀 Create deployment K8S") {
          steps {
              sh 'echo ${WORKSPACE}'
-             sh 'kubectl create -f ${WORKSPACE}/message/deployment-app.yml'
+             sh 'kubectl create -f ${WORKSPACE}/deployment-app.yml'
          }
      }
 
