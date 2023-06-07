@@ -11,6 +11,7 @@ pipeline {
      docker_repo = "crist"
      ImageName = 'jenkins-docker-hub'
      AppName = "message"
+     ImageTag="v1"
   }
 
     stages {
