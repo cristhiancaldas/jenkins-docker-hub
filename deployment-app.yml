@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: container-message
-        image: crist/jenkins-docker-hub:10
+        image: crist/jenkins-docker-hub:latest
         ports:
         - containerPort: 8080
 
