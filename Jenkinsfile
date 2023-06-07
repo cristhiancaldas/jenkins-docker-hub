@@ -26,7 +26,7 @@ pipeline {
 
      stage('🚀 Build-Maven'){
            steps {
-            dir("${AppName}") {
+            dir("${WORKSPACE}") {
                     sh 'mvn clean package'
           }
         }
@@ -34,7 +34,7 @@ pipeline {
 
      stage(" 🚀 DockerBuild and Push") {
          steps {
-             dir("${AppName}") {
+             dir("${WORKSPACE}") {
                  dockerBuild ( "${ImageName}", "${docker_repo}" )
              }
          }
