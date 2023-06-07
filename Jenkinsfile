@@ -1,59 +1,57 @@
+@Library('jenkins-shared-library@main') _
 pipeline {
-  tools {
-        maven 'MAVEN_HOME'
-        jdk 'JAVA_HOME'
-    }
-    agent any
 
+  agent any
 
-   environment {
-        registry = "crist/jenkins-docker-hub"
-        dockerImage = ''
-        DOCKERHUB_CREDENTIALS = credentials('docker-cred')
+  tools{
+        maven 'maven3'
     }
 
-  stages {
+  environment {
+     docker_repo = "crist"
+     ImageName = 'jenkins-docker-hub'
+     AppName = "message"
+  }
 
-    stage('🚀 Build Maven') {
-      steps {
-        git credentialsId: 'github-cred',branch: 'main' , url: 'https://github.com/cristhiancaldas/jenkins-docker-hub'
-        //checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/cristhiancaldas/jenkins-docker-hub']]])
-        sh 'mvn install -DskipTests'
-      }
-    }
+    stages {
 
-   stage('🚀 Build Docker Image') {
-         steps {
-                sh 'docker build -t $registry:$BUILD_NUMBER .'
-         }
-   }
+     stage('🚀 Git-Checkout') {
+           steps {
+                gitCheckout(
+                    branch: "main",
+                    url: "https://github.com/cristhiancaldas/jenkins-docker-hub.git"
+                )
+            }
+        }
 
-   stage('🚀 Login DockerHub'){
-         steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-         }
-   }
-
-   stage('🚀 Push Image DockerHub') {
-         steps{
-                sh 'docker push $registry:$BUILD_NUMBER'
-                sh 'docker rmi $registry:$BUILD_NUMBER'
-         }
-    }
-
-   /* stage('🚀 Deployment K8S'){
-          steps{
-             script{
-              withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
-                             sh ('kubectl apply -f  deployment-app.yml')
-             }
+     stage('🚀 Build-Maven'){
+           steps {
+            dir("${AppName}") {
+                    sh 'mvn clean package'
           }
-    }
-    }*/
-}
-    post {
-      always {
-        sh 'docker logout'
-      }
+        }
+     }
+
+     stage(" 🚀 DockerBuild and Push") {
+         steps {
+             dir("${AppName}") {
+                 dockerBuild ( "${ImageName}", "${docker_repo}" )
+             }
+         }
+     }
+
+     stage("🚀 Docker-CleanUP") {
+        steps {
+             dockerCleanup ( "${ImageName}", "${docker_repo}" )
+        }
+     }
+
+     stage(" 🚀 Create deployment") {
+         steps {
+             sh 'echo ${WORKSPACE}'
+             sh 'kubectl create -f ${WORKSPACE}/message/deployment-app.yml'
+         }
+     }
+
     }
 }
