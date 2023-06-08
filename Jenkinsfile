@@ -23,7 +23,7 @@ pipeline {
                     url: "https://github.com/cristhiancaldas/jenkins-docker-hub.git"
                 )
             }
-        }
+     }
 
      stage('🚀 Build-Maven'){
            steps {

@@ -29,7 +29,7 @@ metadata:
 spec:
   selector:
     app: backend-message
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name: port-message
     protocol: TCP
