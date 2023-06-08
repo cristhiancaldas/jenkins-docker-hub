@@ -18,7 +18,7 @@ spec:
       - name: container-message
         image: crist/jenkins-docker-hub:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
 
 ---
 
@@ -33,4 +33,4 @@ spec:
   ports:
   - name: port-message
     protocol: TCP
-    port: 80
+    port: 8080
