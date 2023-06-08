@@ -50,7 +50,7 @@ pipeline {
      stage(" 🚀 Create deployment K8S") {
          steps {
              sh 'echo ${WORKSPACE}'
-             sh 'kubectl create -f ${WORKSPACE}/deployment-app.yml'
+             sh 'kubectl apply -f ${WORKSPACE}/deployment-app.yml'
          }
      }
 
