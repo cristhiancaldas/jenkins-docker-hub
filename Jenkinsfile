@@ -16,7 +16,7 @@ pipeline {
 
     stages {
 
-     stage('🚀 Git-Checkout') {
+     stage('🚀 Git-Checkout ') {
            steps {
                 gitCheckout(
                     branch: "main",
