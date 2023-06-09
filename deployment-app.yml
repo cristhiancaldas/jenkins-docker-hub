@@ -15,7 +15,7 @@ spec:
         app: backend-message
     spec:
       containers:
-      - name: container-message
+      - name: backend-message
         image: crist/jenkins-docker-hub:latest
         ports:
         - containerPort: 8080
