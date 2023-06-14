@@ -18,7 +18,7 @@ pipeline {
 
      stage('🚀 Git-Checkout ') {
            steps {
-                gitCheckout(
+                checkoutCall(
                     branch: "main",
                     url: "https://github.com/cristhiancaldas/jenkins-docker-hub.git"
                 )
@@ -55,4 +55,13 @@ pipeline {
      }
 
     }
+}
+
+def checkoutCall(Map stageParams) {
+
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name:  stageParams.branch ]],
+        userRemoteConfigs: [[ url: stageParams.url ]]
+    ])
 }
