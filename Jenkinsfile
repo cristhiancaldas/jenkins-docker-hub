@@ -1,4 +1,3 @@
-@Library('jenkins-shared-library@main') _
 pipeline {
 
   agent any
@@ -36,14 +35,14 @@ pipeline {
      stage(" 🚀 Docker Build and Push") {
          steps {
              dir("${WORKSPACE}") {
-                 dockerBuild ( "${ImageName}", "${docker_repo}" )
+                 dockerBuildCall ( "${ImageName}", "${docker_repo}" )
              }
          }
      }
 
      stage("🚀 Docker-CleanUP") {
         steps {
-             dockerCleanup ( "${ImageName}", "${docker_repo}" )
+             dockerCleanupCall ( "${ImageName}", "${docker_repo}" )
         }
      }
 
@@ -64,4 +63,25 @@ def checkoutCall(Map stageParams) {
         branches: [[name:  stageParams.branch ]],
         userRemoteConfigs: [[ url: stageParams.url ]]
     ])
+}
+
+
+def dockerBuildCall(String project, String hubUser) {
+    sh "docker image build -t ${hubUser}/${project} ."
+    sh "docker tag ${hubUser}/${project} ${hubUser}/${project}:${ImageTag}"
+    sh "docker tag ${hubUser}/${project} ${hubUser}/${project}:latest"
+    withCredentials([usernamePassword(
+            credentialsId: "docker_cred",
+            usernameVariable: "USER",
+            passwordVariable: "PASS"
+    )]) {
+        sh "docker login -u '$USER' -p '$PASS'"
+    }
+    sh "docker image push ${hubUser}/${project}:${ImageTag}"
+    sh "docker image push ${hubUser}/${project}:latest"
+}
+
+def dockerCleanupCall(String project, String hubUser) {
+    sh "docker rmi ${hubUser}/${project}:${ImageTag}"
+    sh "docker rmi ${hubUser}/${project}:latest"
 }
