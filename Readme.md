@@ -18,7 +18,7 @@ See `readme.md` for ways to get started.
 Please adhere to this project's `code of conduct`.
 
 ## Diagrama Proyecto
-![](./img/jenkins-docker-hub.png)
+![](./img/jenkins-docker.png)
 
 
 ## Feedback
