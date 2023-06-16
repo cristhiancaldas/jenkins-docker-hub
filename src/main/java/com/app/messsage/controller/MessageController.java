@@ -8,6 +8,6 @@ public class MessageController {
 
     @GetMapping
     public String messageDummy(){
-     return "Message Dummy - 2023 - June 08 - ARRIBA ALIANZA";
+     return "Message Dummy - 2023 - Lima Perú";
  }
 }
