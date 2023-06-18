@@ -37,8 +37,7 @@ pipeline {
         withSonarQubeEnv() {
             sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=demosonar"
               }
-            }
-    }
+      }
 
      stage(" 🚀 Docker Build and Push") {
          steps {
