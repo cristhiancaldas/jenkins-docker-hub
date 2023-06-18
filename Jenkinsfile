@@ -34,7 +34,7 @@ pipeline {
 
      stage('🚀 SonarQube Analysis') {
         steps{
-         withSonarQubeEnv('My SonarQube Server') {
+         withSonarQubeEnv('Sonar-server') {
             sh "${maven}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=demosonar"
               }
           }
