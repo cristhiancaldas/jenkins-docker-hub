@@ -33,9 +33,11 @@ pipeline {
      }
 
      stage('🚀 SonarQube Analysis') {
-        withSonarQubeEnv() {
+        steps{
+         withSonarQubeEnv() {
             sh "${maven}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=demosonar"
               }
+          }
       }
 
      stage(" 🚀 Docker Build and Push") {
