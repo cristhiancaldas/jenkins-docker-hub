@@ -32,13 +32,13 @@ pipeline {
         }
      }
 
-     stage('🚀 SonarQube Analysis') {
+   /*  stage('🚀 SonarQube Analysis') {
         steps{
          withSonarQubeEnv('Sonar-server') {
             sh "mvn clean package sonar:sonar -Dsonar.projectKey=demosonar"
               }
           }
-      }
+      }*/
 
      stage(" 🚀 Docker Build and Push") {
          steps {
@@ -79,7 +79,7 @@ def dockerBuildCall(String project, String hubUser) {
     sh "docker tag ${hubUser}/${project} ${hubUser}/${project}:${ImageTag}"
     sh "docker tag ${hubUser}/${project} ${hubUser}/${project}:latest"
     withCredentials([usernamePassword(
-            credentialsId: "docker_cred",
+            credentialsId: "docker-hub",
             usernameVariable: "USER",
             passwordVariable: "PASS"
     )]) {
