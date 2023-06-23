@@ -61,11 +61,25 @@ pipeline {
          }
      }
 
+     stage("🚀 wait_for_pods"){
+     	 steps{
+             sh 'sleep 300'
+         }
+     }
+
+     stage("🚀 rollback deployment") {
+     	  steps {
+     	      sh """
+     	           kubectl delete deploy ${params.AppName}
+     		       kubectl delete svc ${params.AppName}
+     			  """
+     	  }
+     }
+
     }
 }
 
 def checkoutCall(Map stageParams) {
-
     checkout([
         $class: 'GitSCM',
         branches: [[name:  stageParams.branch ]],

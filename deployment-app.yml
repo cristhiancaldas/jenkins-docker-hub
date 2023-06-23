@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-message
+  name: message
   labels:
     app: backend-message
 spec:
@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-messages
+  name: message
 spec:
   selector:
     app: backend-message
