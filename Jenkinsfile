@@ -70,8 +70,8 @@ pipeline {
      stage("🚀 rollback deployment") {
      	  steps {
      	      sh """
-     	           kubectl delete deploy ${params.AppName}
-     		       kubectl delete svc ${params.AppName}
+     	           kubectl delete deploy ${AppName}
+     		       kubectl delete svc ${AppName}
      			  """
      	  }
      }
