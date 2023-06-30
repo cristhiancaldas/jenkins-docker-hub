@@ -45,7 +45,7 @@ pipeline {
           }
       }
 
-    stage('🚀 SonarQube Analysis') {
+    stage('🚀 SonarQube QualityGate') {
         steps{
              waitForQualityGate abortPipeline: true , credentialsId : 'sonar-token'
           }
