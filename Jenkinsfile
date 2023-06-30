@@ -37,52 +37,52 @@ pipeline {
         }
      }
 
-   /*  stage('🚀 SonarQube Analysis') {
+    stage('🚀 SonarQube Analysis') {
         steps{
-         withSonarQubeEnv('Sonar-server') {
-            sh "mvn clean package sonar:sonar -Dsonar.projectKey=demosonar"
+         withSonarQubeEnv('sonar-server') {
+            sh "mvn clean package sonar:sonar -Dsonar.projectKey=jenkins-sonar"
               }
           }
-      }*/
+      }
 
-     stage(" 🚀 Docker Build and Push") {
+    /* stage(" 🚀 Docker Build and Push") {
          steps {
              dir("${WORKSPACE}") {
                  dockerBuildCall ( "${ImageName}", "${docker_repo}" )
              }
          }
-     }
+     }*/
 
-     stage("🚀 Docker-CleanUP") {
+    /* stage("🚀 Docker-CleanUP") {
         steps {
              dockerCleanupCall ( "${ImageName}", "${docker_repo}" )
         }
-     }
+     }*/
 
-     stage(" 🚀 Create deployment K8S") {
+    /* stage(" 🚀 Create deployment K8S") {
          steps {
              sh 'echo ${WORKSPACE}'
              sh 'kubectl apply -f ${WORKSPACE}/deployment-app.yml'
          }
-     }
+     }*/
 
-     stage("🚀 wait_for_pods"){
+    /* stage("🚀 wait_for_pods"){
      	 steps{
              sh 'sleep 300'
          }
-     }
+     }*/
 
-     stage("🚀 rollback deployment") {
+     /*stage("🚀 rollback deployment") {
      	  steps {
      	      sh """
      	           kubectl delete deploy ${AppName}
      		       kubectl delete svc ${AppName}
      			  """
      	  }
-     }
+     }*/
 
     }
-     post {
+    /* post {
             always {
                 echo 'Slack Notifications.'
                 slackSend channel: '#docker',
@@ -90,7 +90,7 @@ pipeline {
                     message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
                 }
 
-            }
+            }*/
 }
 
 def checkoutCall(Map stageParams) {
