@@ -45,6 +45,12 @@ pipeline {
           }
       }
 
+    stage('🚀 SonarQube Analysis') {
+        steps{
+             waitForQualityGate abortPipeline: true , credentialsId : 'sonar-token'
+          }
+      }
+
     /* stage(" 🚀 Docker Build and Push") {
          steps {
              dir("${WORKSPACE}") {
